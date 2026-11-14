@@ -224,10 +224,7 @@ function App() {
   }, []);
   function openPosts(author: PublicAuthor | null) {
     if (author) {
-      const slug = author.name.trim().toLowerCase()
-        .replace(/[^\p{L}\p{M}\p{N}]+/gu, '-').replace(/^-+|-+$/g, '') || 'author';
-      window.history.replaceState(null, '',
-        '/users/' + encodeURIComponent(slug) + '/' + author._id + '/posts');
+      window.history.replaceState(null, '', '/?author=' + encodeURIComponent(author._id));
     } else {
       window.history.replaceState(null, '', '/');
     }
