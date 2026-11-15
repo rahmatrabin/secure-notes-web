@@ -8,8 +8,11 @@ type AuthProps = { session: Session; onExpired: () => void };
 
 function Login({ onLogin }: { onLogin: (session: Session) => void }) {
   const action = useAction();
-  return <section className="panel login">
-    <h2>Sign in</h2>
+  return <section className="panel login" aria-labelledby="signin-title">
+    <div className="login-heading">
+      <h2 id="signin-title">Sign in</h2>
+      <p>Access your private notes.</p>
+    </div>
     <Feedback error={action.error} />
     <form className="form" onSubmit={event => {
       event.preventDefault();
@@ -247,7 +250,7 @@ function App() {
         <button onClick={() => { setSession(null); setNotice(''); navigate('login'); }}>Sign out</button>
       </div>}
     </div></header>
-    <main className="shell">
+    <main className={`shell workspace${!session && view === 'login' ? ' workspace-login' : ''}`}>
       <nav className="tabs" aria-label="Workspace">
         {(!session ? [['login', 'Sign in']] : [['notes', 'My notes']]).concat(
           admin ? [['all-notes', 'All notes'], ['users', 'Users'], ['interests', 'Interests']] : [],
